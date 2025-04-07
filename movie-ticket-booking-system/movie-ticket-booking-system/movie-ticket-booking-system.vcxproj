@@ -131,6 +131,9 @@
     <ClCompile Include="menu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="movie.h" />
+    <ClInclude Include="cinema.h" />
+    <ClInclude Include="booking.h" />
     <ClInclude Include="menu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
