@@ -13,12 +13,13 @@ std::vector<Cinema> cinemas = {
         {"Hall 2", {{"11:00", "Hall 2"}, {"14:00", "Hall 2"}}}
     }}
 };
+
 void displayShowtimes(const Cinema& cinema, const std::string& movieTitle) {
     bool found = false;
     std::cout << "Available showtimes for '" << movieTitle << "' in " << cinema.name << ":\n";
     for (const auto& hall : cinema.halls) {
         for (const auto& show : hall.shows) {
-            std::cout << "Hall: " << hall.name << " | Showtime: " << show.time << std::endl;
+            std::cout << hall.name << " | Showtime: " << show.time << std::endl;
             found = true;
         }
     }
@@ -26,6 +27,7 @@ void displayShowtimes(const Cinema& cinema, const std::string& movieTitle) {
         std::cout << "No showtimes available for this movie." << std::endl;
     }
 }
+
 void bookTickets() {
     std::string movieTitle;
     std::string selectedHall;
@@ -33,7 +35,7 @@ void bookTickets() {
     int bookingType;
 
     std::cout << "Enter the movie title you want to book: ";
-    std::cin.ignore(); 
+    std::cin.ignore();
     std::getline(std::cin, movieTitle);
 
     for (const auto& cinema : cinemas) {
@@ -48,11 +50,11 @@ void bookTickets() {
     std::cin >> bookingType;
 
     if (bookingType == 1) {
-        std::string creditCard;
-        std::cout << "Online booking selected. Enter your credit card number: ";
+        std::string gmail;
+        std::cout << "Online booking selected. Enter your gmail so we can send you the bill: ";
         std::cin.ignore();
-        std::getline(std::cin, creditCard);
-        std::cout << "Booking successful with credit card: " << creditCard << std::endl;
+        std::getline(std::cin, gmail);
+        std::cout << "Booking successful using online booking: " << gmail << std::endl;
     }
     else if (bookingType == 2) {
         int paymentType;
@@ -77,25 +79,34 @@ void bookTickets() {
         std::cout << "Invalid booking type." << std::endl;
     }
 }
-void searchMovies(const std::vector<Movie>& movies) {
-    std::string searchTerm;
-    std::cout << "Enter movie title, language, genre, or release date to search: ";
-    std::cin.ignore();
-    std::getline(std::cin, searchTerm);
 
-    std::cout << "Search Results:\n";
-    for (const auto& movie : movies) {
-        if (movie.title.find(searchTerm) != std::string::npos ||
-            movie.language.find(searchTerm) != std::string::npos ||
-            movie.genre.find(searchTerm) != std::string::npos ||
-            movie.releaseDate.find(searchTerm) != std::string::npos) {
-            std::cout << "Title: " << movie.title
-                << ", Language: " << movie.language
-                << ", Genre: " << movie.genre
-                << ", Release Date: " << movie.releaseDate << std::endl;
-        }
+void searchMovies(const std::vector<Movie>& movies) {
+
+    std::cout << "Available Movies:\n";
+    for (size_t i = 0; i < movies.size(); ++i) {
+        std::cout << (i + 1) << ". " << movies[i].title << std::endl;
     }
+
+    std::cout << "\nEnter the number corresponding to the movie you want to view: ";
+    int choice;
+    std::cin >> choice;
+
+
+    if (choice < 1 || choice > movies.size()) {
+        std::cout << "Invalid choice. Returning to the menu...\n";
+        return;  
+    }
+
+    const Movie& selectedMovie = movies[choice - 1];
+
+    std::cout << "\nYou selected: " << selectedMovie.title << "\n";
+    std::cout << "Language: " << selectedMovie.language << "\n";
+    std::cout << "Genre: " << selectedMovie.genre << "\n";
+    std::cout << "Release Date: " << selectedMovie.releaseDate << "\n";
+
+    std::cout << std::endl;
 }
+
 void viewBookingHistory() {
     std::cout << "Viewing Booking History..." << std::endl;
 }

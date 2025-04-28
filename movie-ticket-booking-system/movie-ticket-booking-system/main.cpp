@@ -13,27 +13,31 @@ int main() {
     int choice;
 
     do {
-        displayMenu();
-        std::cin >> choice;
+        displayMenu(); 
+        std::cin >> choice; 
+        system("CLS");
+
+
         switch (choice) {
         case 1:
-            searchMovies(movies);  
+            searchMovies(movies);
             break;
         case 2:
             bookTickets();  
             break;
         case 3:
-            viewBookingHistory();
+            viewBookingHistory(); 
             break;
         case 4:
-            accessAdminPanel();
+            accessAdminPanel(); 
             break;
         case 5:
-            std::cout << "Exiting the system. Thank you!" << std::endl;
+            std::cout << "Exiting the system. Thank you!" << std::endl; 
             break;
         default:
-            std::cout << "Invalid choice. Please try again." << std::endl;
+            std::cout << "Invalid choice. Please try again." << std::endl; 
         }
-    } while (choice != 5);
+    } while (choice != 5); 
+
     return 0;
 }

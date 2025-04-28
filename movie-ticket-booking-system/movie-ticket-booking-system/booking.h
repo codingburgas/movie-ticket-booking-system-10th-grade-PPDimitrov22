@@ -10,4 +10,3 @@ void bookTickets();
 void processPayment(int bookingType, int paymentType);
 
 #endif
-
