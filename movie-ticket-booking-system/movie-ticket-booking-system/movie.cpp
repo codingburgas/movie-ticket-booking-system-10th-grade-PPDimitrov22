@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include "movie.h"
 
 void displayMovieDetails(const Movie& movie) {

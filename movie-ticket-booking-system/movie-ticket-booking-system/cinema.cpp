@@ -1,6 +1,20 @@
 #include <iostream>
 #include "cinema.h"
 
+std::vector<Cinema> cinemas = {  // Defined here only
+    {
+        "Cinema One", {
+            {"Hall 1", {{"10:00", "Hall 1"}, {"12:00", "Hall 1"}}},
+            {"Hall 2", {{"14:00", "Hall 2"}, {"16:00", "Hall 2"}}}
+        }
+    },
+    {
+        "Cinema Two", {
+            {"Hall A", {{"11:00", "Hall A"}, {"13:00", "Hall A"}}}
+        }
+    }
+};
+
 void printShow(const Show& show) {
     std::cout << "Showtime: " << show.time << ", Hall: " << show.hall << std::endl;
 }

@@ -1,8 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <string>
 #include "menu.h"
-#include "booking.h" 
+#include "movie.h"
 
 std::vector<Movie> movies = {
     {"Inception", "English", "Sci-Fi", "2010-07-16"},
@@ -16,7 +15,7 @@ int main() {
     do {
         displayMenu();
         std::cin >> choice;
-        system("CLS"); 
+        system("CLS");
 
         switch (choice) {
         case 1:
@@ -32,10 +31,10 @@ int main() {
             accessAdminPanel();
             break;
         case 5:
-            std::cout << "Exiting the system. Thank you!" << std::endl;
+            std::cout << "Exiting. Thank you!\n";
             break;
         default:
-            std::cout << "Invalid choice. Please try again." << std::endl;
+            std::cout << "Invalid choice. Try again.\n";
         }
     } while (choice != 5);
 

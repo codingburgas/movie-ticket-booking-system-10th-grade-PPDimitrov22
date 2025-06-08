@@ -7,5 +7,6 @@
 
 void displayShowtimes(const Cinema& cinema, const std::string& movieTitle);
 void bookTickets();
+void viewBookingHistory();
 
 #endif
