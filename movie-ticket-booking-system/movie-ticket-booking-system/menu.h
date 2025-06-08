@@ -3,28 +3,8 @@
 
 #include <vector>
 #include <string>
-
-struct Movie {
-    std::string title;
-    std::string language;
-    std::string genre;
-    std::string releaseDate;
-};
-
-struct Show {
-    std::string time;
-    std::string hall;
-};
-
-struct Hall {
-    std::string name;
-    std::vector<Show> shows;
-};
-
-struct Cinema {
-    std::string name;
-    std::vector<Hall> halls;
-};
+#include "movie.h"
+#include "cinema.h"
 
 void displayMenu();
 void searchMovies(const std::vector<Movie>& movies);

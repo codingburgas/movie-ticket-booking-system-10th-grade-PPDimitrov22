@@ -4,7 +4,7 @@
 
 #include <string>
 #include <vector>
-#include "movie.h" 
+#include "movie.h"
 
 struct Show {
     std::string time;
@@ -20,5 +20,10 @@ struct Cinema {
     std::string name;
     std::vector<Hall> halls;
 };
+
+void printShow(const Show& show);
+void printHall(const Hall& hall);
+void printCinemaDetails(const Cinema& cinema);
+bool hasShowtime(const Cinema& cinema, const std::string& time);
 
 #endif

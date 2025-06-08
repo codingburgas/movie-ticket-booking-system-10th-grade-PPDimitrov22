@@ -127,8 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="booking.cpp" />
+    <ClCompile Include="cinema.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="movie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="movie.h" />
