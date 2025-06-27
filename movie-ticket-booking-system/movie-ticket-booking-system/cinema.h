@@ -5,9 +5,16 @@
 #include <string>
 #include <vector>
 
+struct Seat {
+    std::string seatNumber;
+    std::string type;
+    bool isBooked = false;
+};
+
 struct Show {
     std::string time;
     std::string hall;
+    std::vector<Seat> seats; 
 };
 
 struct Hall {
@@ -20,6 +27,9 @@ struct Cinema {
     std::vector<Hall> halls;
 };
 
-extern std::vector<Cinema> cinemas;  
+extern std::vector<Cinema> cinemas;
+
+void initializeSeats(std::vector<Seat>& seats);
+void initializeAllSeats();
 
 #endif

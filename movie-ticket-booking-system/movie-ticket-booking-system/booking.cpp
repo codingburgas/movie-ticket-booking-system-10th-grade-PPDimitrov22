@@ -1,74 +1,126 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include "booking.h"
 #include "cinema.h"
+#include "seats.h"
+
+extern std::vector<Cinema> cinemas; 
+
+std::vector<std::string> bookingHistory;
 
 void displayShowtimes(const Cinema& cinema, const std::string& movieTitle) {
-    bool found = false;
-    std::cout << "Available showtimes for '" << movieTitle << "' in " << cinema.name << ":\n";
+    std::cout << "Showtimes for movie \"" << movieTitle << "\" at " << cinema.name << ":\n";
     for (const auto& hall : cinema.halls) {
+        std::cout << hall.name << ": ";
         for (const auto& show : hall.shows) {
-            std::cout << hall.name << " | Showtime: " << show.time << std::endl;
-            found = true;
+            std::cout << show.time << "  ";
         }
-    }
-    if (!found) {
-        std::cout << "No showtimes available for this movie." << std::endl;
+        std::cout << "\n";
     }
 }
 
 void bookTickets() {
-    std::string movieTitle;
-    std::string selectedHall;
-    std::string selectedTime;
-    int bookingType;
+    std::string cinemaName, movieTitle, selectedHall, selectedTime;
 
-    std::cout << "Enter the movie title you want to book: ";
+    std::cout << "Available cinemas:\n";
+    for (const auto& c : cinemas) {
+        std::cout << "- " << c.name << "\n";
+    }
+    std::cout << "Enter cinema name: ";
     std::cin.ignore();
+    std::getline(std::cin, cinemaName);
+
+    Cinema* chosenCinema = nullptr;
+    for (auto& c : cinemas) {
+        if (c.name == cinemaName) {
+            chosenCinema = &c;
+            break;
+        }
+    }
+    if (!chosenCinema) {
+        std::cout << "Cinema not found.\n";
+        return;
+    }
+
+    std::cout << "Enter movie title: ";
     std::getline(std::cin, movieTitle);
 
-    for (const auto& cinema : cinemas) {
-        displayShowtimes(cinema, movieTitle);
-    }
+    displayShowtimes(*chosenCinema, movieTitle);
 
-    std::cout << "Enter the hall and time you want to book (e.g., Hall 1, 10:00): ";
+    std::cout << "Enter hall name: ";
     std::getline(std::cin, selectedHall);
+
+    std::cout << "Enter showtime (e.g. 10:00): ";
     std::getline(std::cin, selectedTime);
 
-    std::cout << "Select booking type: 1. Online, 2. Walk-in: ";
-    std::cin >> bookingType;
-
-    if (bookingType == 1) {
-        std::string gmail;
-        std::cout << "Online booking selected. Enter your gmail: ";
-        std::cin.ignore();
-        std::getline(std::cin, gmail);
-        std::cout << "Booking successful. Confirmation sent to " << gmail << std::endl;
-    }
-    else if (bookingType == 2) {
-        int paymentType;
-        std::cout << "Select payment method: 1. Cash, 2. Credit Card: ";
-        std::cin >> paymentType;
-
-        if (paymentType == 1) {
-            std::cout << "Booking successful with cash." << std::endl;
+    // Find the show object
+    Show* selectedShow = nullptr;
+    for (auto& hall : chosenCinema->halls) {
+        if (hall.name == selectedHall) {
+            for (auto& show : hall.shows) {
+                if (show.time == selectedTime) {
+                    selectedShow = &show;
+                    break;
+                }
+            }
         }
-        else if (paymentType == 2) {
-            std::string creditCard;
-            std::cout << "Enter credit card number: ";
-            std::cin.ignore();
-            std::getline(std::cin, creditCard);
-            std::cout << "Booking successful with card: " << creditCard << std::endl;
+    }
+
+    if (!selectedShow) {
+        std::cout << "No show found for this hall and time.\n";
+        return;
+    }
+
+    displaySeats(selectedShow->seats);
+
+    std::vector<std::string> selectedSeats;
+    std::string seatInput;
+
+    std::cout << "Enter seat labels to book (type DONE to finish):\n";
+    while (true) {
+        std::cin >> seatInput;
+        if (seatInput == "DONE") break;
+
+        if (!isSeatAvailable(selectedShow->seats, seatInput)) {
+            std::cout << "Seat " << seatInput << " is not available or invalid. Try again.\n";
         }
         else {
-            std::cout << "Invalid payment method." << std::endl;
+            if (std::find(selectedSeats.begin(), selectedSeats.end(), seatInput) == selectedSeats.end()) {
+                selectedSeats.push_back(seatInput);
+                std::cout << "Seat " << seatInput << " added to your booking.\n";
+            }
+            else {
+                std::cout << "Seat " << seatInput << " is already selected.\n";
+            }
         }
     }
-    else {
-        std::cout << "Invalid booking type." << std::endl;
+    if (selectedSeats.empty()) {
+        std::cout << "No seats selected. Booking cancelled.\n";
+        return;
     }
+    for (const auto& seatLabel : selectedSeats) {
+        bookSeat(selectedShow->seats, seatLabel);
+    }
+
+    std::cout << "Successfully booked seats: ";
+    for (const auto& seatLabel : selectedSeats) {
+        std::cout << seatLabel << " ";
+    }
+    std::cout << "\n";
+
+    std::string bookingRecord = "Cinema: " + cinemaName + ", Movie: " + movieTitle + ", Hall: " + selectedHall + ", Time: " + selectedTime + ", Seats: ";
+    for (const auto& seatLabel : selectedSeats) bookingRecord += seatLabel + " ";
+    bookingHistory.push_back(bookingRecord);
 }
 
 void viewBookingHistory() {
-    std::cout << "[Mocked] Booking history feature not implemented yet.\n";
+    if (bookingHistory.empty()) {
+        std::cout << "No bookings made yet.\n";
+        return;
+    }
+    std::cout << "Booking History:\n";
+    for (const auto& record : bookingHistory) {
+        std::cout << record << "\n";
+    }
 }
