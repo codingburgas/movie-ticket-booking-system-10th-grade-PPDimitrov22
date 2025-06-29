@@ -74,3 +74,32 @@ void searchMovies(const std::vector<Movie>& movies) {
 void accessAdminPanel() {
     std::cout << "[Mocked] Admin panel access not yet implemented.\n";
 }
+
+void processPayment(bool isOnline) {
+    std::cout << "\nSelect Payment Method:\n";
+    if (isOnline) {
+        std::cout << "1. Credit Card\n";
+        int choice;
+        std::cin >> choice;
+        if (choice == 1) {
+            std::cout << "Processing credit card payment...\n";
+        }
+        else {
+            std::cout << "Invalid payment method for online booking.\n";
+        }
+    }
+    else {
+        std::cout << "1. Credit Card\n2. Cash\n";
+        int choice;
+        std::cin >> choice;
+        if (choice == 1) {
+            std::cout << "Processing credit card payment...\n";
+        }
+        else if (choice == 2) {
+            std::cout << "Processing cash payment...\n";
+        }
+        else {
+            std::cout << "Invalid payment method.\n";
+        }
+    }
+}

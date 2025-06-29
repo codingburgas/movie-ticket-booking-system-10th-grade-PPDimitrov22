@@ -1,11 +1,13 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include "booking.h"
 #include "cinema.h"
 #include "seats.h"
+#include "payment.h" // For processPayment
 
-extern std::vector<Cinema> cinemas; 
+extern std::vector<Cinema> cinemas;
 
 std::vector<std::string> bookingHistory;
 
@@ -95,10 +97,36 @@ void bookTickets() {
             }
         }
     }
+
     if (selectedSeats.empty()) {
         std::cout << "No seats selected. Booking cancelled.\n";
         return;
     }
+
+    // Ask for booking method
+    bool isOnline;
+    std::string methodInput;
+    std::cout << "Are you booking online or as a walk-in? (enter 'online' or 'walk-in'): ";
+    std::cin >> methodInput;
+
+    if (methodInput == "online") {
+        isOnline = true;
+    }
+    else if (methodInput == "walk-in") {
+        isOnline = false;
+    }
+    else {
+        std::cout << "Invalid option. Booking cancelled.\n";
+        return;
+    }
+
+    // Process payment
+    if (!processPayment(isOnline)) {
+        std::cout << "Payment failed. Booking cancelled.\n";
+        return;
+    }
+
+    // Book seats
     for (const auto& seatLabel : selectedSeats) {
         bookSeat(selectedShow->seats, seatLabel);
     }

@@ -4,7 +4,8 @@
 void displaySeats(const std::vector<Seat>& seats) {
     std::cout << "Seats (X = booked):\n";
     for (const auto& seat : seats) {
-        std::cout << seat.seatNumber << "[" << seat.type[0] << "] ";
+        std::cout << seat.seatNumber << "[" << seat.type[0] << "] "
+            << "$" << seat.price << " ";
         if (seat.isBooked)
             std::cout << "X ";
         else
@@ -19,7 +20,7 @@ bool isSeatAvailable(const std::vector<Seat>& seats, const std::string& seatLabe
             return !seat.isBooked;
         }
     }
-    return false; 
+    return false;
 }
 
 bool bookSeat(std::vector<Seat>& seats, const std::string& seatLabel) {

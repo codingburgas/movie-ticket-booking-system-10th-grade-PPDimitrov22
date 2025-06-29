@@ -4,7 +4,7 @@
 #include "movie.h"
 #include "auth.h"
 #include "booking.h"
-#include "cinema.h"   // Include this for initializeAllSeats()
+#include "cinema.h" 
 
 std::vector<Movie> movies = {
     {"Inception", "English", "Sci-Fi", "2010-07-16"},

@@ -12,4 +12,6 @@ void bookTickets();
 void viewBookingHistory();
 void accessAdminPanel();
 
+void displaySplashScreen();
+
 #endif

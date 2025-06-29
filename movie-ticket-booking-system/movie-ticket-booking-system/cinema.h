@@ -8,13 +8,14 @@
 struct Seat {
     std::string seatNumber;
     std::string type;
+    double price;
     bool isBooked = false;
 };
 
 struct Show {
     std::string time;
     std::string hall;
-    std::vector<Seat> seats; 
+    std::vector<Seat> seats;
 };
 
 struct Hall {

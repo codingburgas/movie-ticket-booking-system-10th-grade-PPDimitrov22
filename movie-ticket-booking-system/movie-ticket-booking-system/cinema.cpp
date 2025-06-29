@@ -16,15 +16,15 @@ std::vector<Cinema> cinemas = {
 };
 
 void initializeSeats(std::vector<Seat>& seats) {
-    seats.clear(); 
+    seats.clear();
     for (int i = 1; i <= 3; ++i) {
-        seats.push_back({ "S" + std::to_string(i), "Silver", false });
+        seats.push_back({ "S" + std::to_string(i), "Silver", 10.0, false }); 
     }
     for (int i = 1; i <= 4; ++i) {
-        seats.push_back({ "G" + std::to_string(i), "Gold", false });
+        seats.push_back({ "G" + std::to_string(i), "Gold", 15.0, false });
     }
     for (int i = 1; i <= 3; ++i) {
-        seats.push_back({ "P" + std::to_string(i), "Platinum", false });
+        seats.push_back({ "P" + std::to_string(i), "Platinum", 20.0, false });
     }
 }
 
