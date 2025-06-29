@@ -135,6 +135,7 @@
     <ClCompile Include="movie.cpp" />
     <ClCompile Include="payment.cpp" />
     <ClCompile Include="seats.cpp" />
+    <ClCompile Include="VisualFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="auth.h" />
@@ -144,6 +145,7 @@
     <ClInclude Include="menu.h" />
     <ClInclude Include="payment.h" />
     <ClInclude Include="seats.h" />
+    <ClInclude Include="VisualFunctions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

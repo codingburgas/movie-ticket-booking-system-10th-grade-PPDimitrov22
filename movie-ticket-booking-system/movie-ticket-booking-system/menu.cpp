@@ -5,8 +5,10 @@
 #include "menu.h"
 #include "booking.h"
 #include "movie.h"
+#include "VisualFunctions.h"
 
 void displayMenu() {
+    printLogo("logo.txt");
     std::cout << "\n==== Movie Ticket Booking System ====\n";
     std::cout << "1. Search Movies\n";
     std::cout << "2. Book Tickets\n";

@@ -5,7 +5,7 @@
 #include "booking.h"
 #include "cinema.h"
 #include "seats.h"
-#include "payment.h" // For processPayment
+#include "payment.h"
 
 extern std::vector<Cinema> cinemas;
 
@@ -56,7 +56,6 @@ void bookTickets() {
     std::cout << "Enter showtime (e.g. 10:00): ";
     std::getline(std::cin, selectedTime);
 
-    // Find the show object
     Show* selectedShow = nullptr;
     for (auto& hall : chosenCinema->halls) {
         if (hall.name == selectedHall) {
@@ -103,7 +102,6 @@ void bookTickets() {
         return;
     }
 
-    // Ask for booking method
     bool isOnline;
     std::string methodInput;
     std::cout << "Are you booking online or as a walk-in? (enter 'online' or 'walk-in'): ";
@@ -119,14 +117,10 @@ void bookTickets() {
         std::cout << "Invalid option. Booking cancelled.\n";
         return;
     }
-
-    // Process payment
     if (!processPayment(isOnline)) {
         std::cout << "Payment failed. Booking cancelled.\n";
         return;
     }
-
-    // Book seats
     for (const auto& seatLabel : selectedSeats) {
         bookSeat(selectedShow->seats, seatLabel);
     }
