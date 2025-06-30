@@ -5,6 +5,7 @@
 #include "auth.h"
 #include "booking.h"
 #include "cinema.h" 
+#include "admin.h"
 
 std::vector<Movie> movies = {
     {"Inception", "English", "Sci-Fi", "2010-07-16"},
@@ -65,9 +66,10 @@ int main() {
         case 3:
             viewBookingHistory();
             break;
-        case 4:
+        case 4: {
             accessAdminPanel();
             break;
+        }
         case 5:
             std::cout << "Exiting. Thank you!\n";
             break;

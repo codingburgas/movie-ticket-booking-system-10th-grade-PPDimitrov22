@@ -18,7 +18,7 @@ std::vector<Cinema> cinemas = {
 void initializeSeats(std::vector<Seat>& seats) {
     seats.clear();
     for (int i = 1; i <= 3; ++i) {
-        seats.push_back({ "S" + std::to_string(i), "Silver", 10.0, false }); 
+        seats.push_back({ "S" + std::to_string(i), "Silver", 10.0, false });
     }
     for (int i = 1; i <= 4; ++i) {
         seats.push_back({ "G" + std::to_string(i), "Gold", 15.0, false });
@@ -63,6 +63,64 @@ bool hasShowtime(const Cinema& cinema, const std::string& time) {
         for (const auto& show : hall.shows) {
             if (show.time == time) {
                 return true;
+            }
+        }
+    }
+    return false;
+}
+
+// Admin function implementations
+
+bool addShow(std::vector<Cinema>& cinemas, const std::string& cinemaName, const std::string& hallName, const Show& newShow) {
+    for (auto& cinema : cinemas) {
+        if (cinema.name == cinemaName) {
+            for (auto& hall : cinema.halls) {
+                if (hall.name == hallName) {
+                    // Check if show with same time exists
+                    for (const auto& show : hall.shows) {
+                        if (show.time == newShow.time) {
+                            return false; // show already exists at this time
+                        }
+                    }
+                    hall.shows.push_back(newShow);
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool deleteShow(std::vector<Cinema>& cinemas, const std::string& cinemaName, const std::string& hallName, const std::string& showTime) {
+    for (auto& cinema : cinemas) {
+        if (cinema.name == cinemaName) {
+            for (auto& hall : cinema.halls) {
+                if (hall.name == hallName) {
+                    for (auto it = hall.shows.begin(); it != hall.shows.end(); ++it) {
+                        if (it->time == showTime) {
+                            hall.shows.erase(it);
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool updateShow(std::vector<Cinema>& cinemas, const std::string& cinemaName, const std::string& hallName, const std::string& oldShowTime, const Show& updatedShow) {
+    for (auto& cinema : cinemas) {
+        if (cinema.name == cinemaName) {
+            for (auto& hall : cinema.halls) {
+                if (hall.name == hallName) {
+                    for (auto& show : hall.shows) {
+                        if (show.time == oldShowTime) {
+                            show = updatedShow;
+                            return true;
+                        }
+                    }
+                }
             }
         }
     }

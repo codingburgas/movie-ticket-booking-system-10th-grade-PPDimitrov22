@@ -5,6 +5,7 @@
 #include "menu.h"
 #include "booking.h"
 #include "movie.h"
+#include "cinema.h"
 #include "VisualFunctions.h"
 
 void displayMenu() {
@@ -74,7 +75,68 @@ void searchMovies(const std::vector<Movie>& movies) {
 }
 
 void accessAdminPanel() {
-    std::cout << "[Mocked] Admin panel access not yet implemented.\n";
+    std::cout << "\n=== Admin Panel ===\n";
+    std::cout << "1. Add Show\n2. Delete Show\n3. Update Show\n";
+    std::cout << "Enter option: ";
+    int option;
+    std::cin >> option;
+    std::cin.ignore();
+
+    std::string cinemaName, hallName, showTime;
+    Show newShow;
+
+    switch (option) {
+    case 1:
+        std::cout << "Enter Cinema Name: ";
+        std::getline(std::cin, cinemaName);
+        std::cout << "Enter Hall Name: ";
+        std::getline(std::cin, hallName);
+        std::cout << "Enter Show Time: ";
+        std::getline(std::cin, newShow.time);
+        newShow.hall = hallName;
+        initializeSeats(newShow.seats);
+        if (addShow(cinemas, cinemaName, hallName, newShow)) {
+            std::cout << "Show added successfully.\n";
+        }
+        else {
+            std::cout << "Failed to add show (may already exist).\n";
+        }
+        break;
+    case 2:
+        std::cout << "Enter Cinema Name: ";
+        std::getline(std::cin, cinemaName);
+        std::cout << "Enter Hall Name: ";
+        std::getline(std::cin, hallName);
+        std::cout << "Enter Show Time to delete: ";
+        std::getline(std::cin, showTime);
+        if (deleteShow(cinemas, cinemaName, hallName, showTime)) {
+            std::cout << "Show deleted successfully.\n";
+        }
+        else {
+            std::cout << "Failed to delete show (not found).\n";
+        }
+        break;
+    case 3:
+        std::cout << "Enter Cinema Name: ";
+        std::getline(std::cin, cinemaName);
+        std::cout << "Enter Hall Name: ";
+        std::getline(std::cin, hallName);
+        std::cout << "Enter Old Show Time to update: ";
+        std::getline(std::cin, showTime);
+        std::cout << "Enter New Show Time: ";
+        std::getline(std::cin, newShow.time);
+        newShow.hall = hallName;
+        initializeSeats(newShow.seats);
+        if (updateShow(cinemas, cinemaName, hallName, showTime, newShow)) {
+            std::cout << "Show updated successfully.\n";
+        }
+        else {
+            std::cout << "Failed to update show (not found).\n";
+        }
+        break;
+    default:
+        std::cout << "Invalid admin option.\n";
+    }
 }
 
 void processPayment(bool isOnline) {

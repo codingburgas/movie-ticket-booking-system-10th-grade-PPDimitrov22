@@ -18,7 +18,7 @@ int findMovieByTitle(const std::vector<Movie>& movies, const std::string& title)
 }
 
 void listMovies(const std::vector<Movie>& movies) {
-    for (size_t i = 0; i < movies.size(); ++i) {
-        std::cout << i + 1 << ". " << movies[i].title << std::endl;
+    for (const auto& movie : movies) {
+        std::cout << movie.title << " (" << movie.releaseDate << ")" << std::endl;
     }
 }
