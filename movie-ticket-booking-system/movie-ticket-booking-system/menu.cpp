@@ -77,10 +77,13 @@ void searchMovies(const std::vector<Movie>& movies) {
 void accessAdminPanel() {
     std::cout << "\n=== Admin Panel ===\n";
     std::cout << "1. Add Show\n2. Delete Show\n3. Update Show\n";
+    std::cout << "4. Add Movie\n5. Remove Movie\n";
     std::cout << "Enter option: ";
     int option;
     std::cin >> option;
     std::cin.ignore();
+
+    extern std::vector<Movie> movies;
 
     std::string cinemaName, hallName, showTime;
     Show newShow;
@@ -134,11 +137,43 @@ void accessAdminPanel() {
             std::cout << "Failed to update show (not found).\n";
         }
         break;
+    case 4: {  // Add movie
+        Movie newMovie;
+        std::cout << "Enter movie title: ";
+        std::getline(std::cin, newMovie.title);
+        std::cout << "Enter language: ";
+        std::getline(std::cin, newMovie.language);
+        std::cout << "Enter genre: ";
+        std::getline(std::cin, newMovie.genre);
+        std::cout << "Enter release date: ";
+        std::getline(std::cin, newMovie.releaseDate);
+
+        movies.push_back(newMovie);
+        std::cout << "Movie added successfully.\n";
+        break;
+    }
+    case 5: {  // Remove movie
+        std::string titleToRemove;
+        std::cout << "Enter movie title to remove: ";
+        std::getline(std::cin, titleToRemove);
+
+        auto it = std::remove_if(movies.begin(), movies.end(), [&](const Movie& m) {
+            return m.title == titleToRemove;
+            });
+
+        if (it != movies.end()) {
+            movies.erase(it, movies.end());
+            std::cout << "Movie removed successfully.\n";
+        }
+        else {
+            std::cout << "Movie not found.\n";
+        }
+        break;
+    }
     default:
         std::cout << "Invalid admin option.\n";
     }
 }
-
 void processPayment(bool isOnline) {
     std::cout << "\nSelect Payment Method:\n";
     if (isOnline) {
