@@ -6,10 +6,7 @@
 #include "cinema.h"
 #include "seats.h"
 #include "payment.h"
-
-extern std::vector<Cinema> cinemas;
-
-std::vector<std::string> bookingHistory;
+#include "movie.h"
 
 void displayShowtimes(const Cinema& cinema, const std::string& movieTitle) {
     std::cout << "Showtimes for movie \"" << movieTitle << "\" at " << cinema.name << ":\n";
@@ -21,6 +18,20 @@ void displayShowtimes(const Cinema& cinema, const std::string& movieTitle) {
         std::cout << "\n";
     }
 }
+extern std::vector<Cinema> cinemas;
+
+std::vector<std::string> bookingHistory;
+
+extern std::vector<Movie> movies;
+bool movieExists(const std::string& title) {
+    for (const auto& m : movies) {
+        if (m.title == title) return true;
+    }
+    return false;
+}
+
+
+
 
 void bookTickets() {
     std::string cinemaName, movieTitle, selectedHall, selectedTime;
@@ -47,6 +58,12 @@ void bookTickets() {
 
     std::cout << "Enter movie title: ";
     std::getline(std::cin, movieTitle);
+
+    if (!movieExists(movieTitle)) {
+        std::cout << "Movie \"" << movieTitle << "\" does not exist.\n";
+        return;
+    }
+
 
     displayShowtimes(*chosenCinema, movieTitle);
 
