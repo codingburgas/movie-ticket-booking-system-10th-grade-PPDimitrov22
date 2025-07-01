@@ -5,7 +5,6 @@
 #include <string>
 #include "movie.h"
 
-// Admin operations for R12
 void addShow(const std::string& cinemaName, const std::string& hallName, const std::string& showtime);
 void deleteShow(const std::string& cinemaName, const std::string& hallName, const std::string& showtime);
 void updateShow(const std::string& cinemaName, const std::string& hallName, const std::string& oldShowtime, const std::string& newShowtime);

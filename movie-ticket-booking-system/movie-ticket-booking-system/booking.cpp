@@ -73,6 +73,12 @@ void bookTickets() {
     std::cout << "Enter showtime (e.g. 10:00): ";
     std::getline(std::cin, selectedTime);
 
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+
     Show* selectedShow = nullptr;
     for (auto& hall : chosenCinema->halls) {
         if (hall.name == selectedHall) {

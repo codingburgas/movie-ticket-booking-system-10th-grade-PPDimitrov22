@@ -28,33 +28,55 @@ void searchMovies(const std::vector<Movie>& movies) {
     std::cin.ignore();
 
     std::string input;
+
+    // Clear screen before showing options for all cases
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+
     switch (option) {
     case 1:
-        std::cout << "\nAvailable movie titles:\n";
-        for (const auto& m : movies) std::cout << "- " << m.title << '\n';
-        std::cout << "Enter movie title: ";
+        std::cout << "Available movie titles:\n";
+        for (const auto& m : movies)
+            std::cout << "- " << m.title << '\n';
+        std::cout << "\nEnter movie title: ";
+        std::getline(std::cin, input);
         break;
     case 2:
-        std::cout << "\nAvailable languages:\n";
-        for (const auto& m : movies) std::cout << "- " << m.language << '\n';
-        std::cout << "Enter language: ";
+        std::cout << "Available languages:\n";
+        for (const auto& m : movies)
+            std::cout << "- " << m.language << '\n';
+        std::cout << "\nEnter language: ";
+        std::getline(std::cin, input);
         break;
     case 3:
-        std::cout << "\nAvailable genres:\n";
-        for (const auto& m : movies) std::cout << "- " << m.genre << '\n';
-        std::cout << "Enter genre: ";
+        std::cout << "Available genres:\n";
+        for (const auto& m : movies)
+            std::cout << "- " << m.genre << '\n';
+        std::cout << "\nEnter genre: ";
+        std::getline(std::cin, input);
         break;
     case 4:
-        std::cout << "\nAvailable release dates:\n";
-        for (const auto& m : movies) std::cout << "- " << m.releaseDate << '\n';
-        std::cout << "Enter release date: ";
+        std::cout << "Available release dates:\n";
+        for (const auto& m : movies)
+            std::cout << "- " << m.releaseDate << '\n';
+        std::cout << "\nEnter release date: ";
+        std::getline(std::cin, input);
         break;
     default:
         std::cout << "Invalid option.\n";
         return;
     }
 
-    std::getline(std::cin, input);
+    // Clear screen again before displaying results
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+
     bool found = false;
 
     for (const auto& movie : movies) {
@@ -73,6 +95,8 @@ void searchMovies(const std::vector<Movie>& movies) {
         std::cout << "No matching movies found.\n";
     }
 }
+
+
 
 void accessAdminPanel() {
     std::cout << "\n=== Admin Panel ===\n";
@@ -174,6 +198,7 @@ void accessAdminPanel() {
         std::cout << "Invalid admin option.\n";
     }
 }
+
 void processPayment(bool isOnline) {
     std::cout << "\nSelect Payment Method:\n";
     if (isOnline) {

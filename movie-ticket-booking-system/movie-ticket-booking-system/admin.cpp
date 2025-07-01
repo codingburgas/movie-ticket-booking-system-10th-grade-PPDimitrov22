@@ -38,7 +38,6 @@ void addShow(const std::string& cinemaName, const std::string& hallName, const s
     }
     std::cout << "Cinema not found.\n";
 }
-
 void deleteShow(const std::string& cinemaName, const std::string& hallName, const std::string& showtime) {
     for (auto& cinema : cinemas) {
         if (cinema.name == cinemaName) {
@@ -62,7 +61,6 @@ void deleteShow(const std::string& cinemaName, const std::string& hallName, cons
     }
     std::cout << "Cinema not found.\n";
 }
-
 void updateShow(const std::string& cinemaName, const std::string& hallName, const std::string& oldShowtime, const std::string& newShowtime) {
     for (auto& cinema : cinemas) {
         if (cinema.name == cinemaName) {
@@ -92,7 +90,6 @@ void updateShow(const std::string& cinemaName, const std::string& hallName, cons
     }
     std::cout << "Cinema not found.\n";
 }
-
 void addMovie(const Movie& movie) {
     // Check if movie title exists
     for (const auto& m : movies) {
@@ -104,7 +101,6 @@ void addMovie(const Movie& movie) {
     movies.push_back(movie);
     std::cout << "Movie added successfully.\n";
 }
-
 void deleteMovie(const std::string& title) {
     for (auto it = movies.begin(); it != movies.end(); ++it) {
         if (it->title == title) {
