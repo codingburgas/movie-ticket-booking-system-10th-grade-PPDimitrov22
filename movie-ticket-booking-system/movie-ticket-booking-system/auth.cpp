@@ -26,13 +26,22 @@ bool login() {
 }
 
 void signUp() {
-    std::string username, password;
+    std::string username, password, u, p;
     system("CLS");
     std::cout << "=== Sign Up ===\n";
     std::cout << "Enter a username: ";
     std::cin >> username;
     std::cout << "Enter a password: ";
     std::cin >> password;
+
+    std::ifstream inFile("users.txt");
+    while (inFile >> u >> p) {
+        if (u == username) {
+            std::cout << "Username already taken. Please choose another one.\n";
+            return;
+        }
+    }
+    inFile.close();
 
     std::ofstream outFile("users.txt", std::ios::app);
     if (outFile.is_open()) {
