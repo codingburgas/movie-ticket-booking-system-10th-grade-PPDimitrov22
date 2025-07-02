@@ -1,7 +1,4 @@
 #pragma once
-#ifndef ADMIN_H
-#define ADMIN_H
-
 #include <string>
 #include "movie.h"
 
@@ -12,4 +9,3 @@ void updateShow(const std::string& cinemaName, const std::string& hallName, cons
 void addMovie(const Movie& movie);
 void deleteMovie(const std::string& title);
 
-#endif

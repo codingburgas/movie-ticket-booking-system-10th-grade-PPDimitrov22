@@ -1,7 +1,4 @@
 #pragma once
-#ifndef CINEMA_H
-#define CINEMA_H
-
 #include <string>
 #include <vector>
 
@@ -36,5 +33,3 @@ void initializeAllSeats();
 bool addShow(std::vector<Cinema>& cinemas, const std::string& cinemaName, const std::string& hallName, const Show& newShow);
 bool deleteShow(std::vector<Cinema>& cinemas, const std::string& cinemaName, const std::string& hallName, const std::string& showTime);
 bool updateShow(std::vector<Cinema>& cinemas, const std::string& cinemaName, const std::string& hallName, const std::string& oldShowTime, const Show& updatedShow);
-
-#endif
