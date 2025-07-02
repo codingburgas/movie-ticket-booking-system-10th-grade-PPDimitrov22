@@ -1,8 +1,9 @@
-#pragma once
 #ifndef AUTH_H
 #define AUTH_H
 
-bool login();
+enum class UserType { None, Regular, Admin };
+
+UserType login();
 void signUp();
 
 #endif

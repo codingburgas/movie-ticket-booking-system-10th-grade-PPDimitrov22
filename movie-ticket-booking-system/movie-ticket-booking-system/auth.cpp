@@ -3,7 +3,10 @@
 #include <string>
 #include "auth.h"
 
-bool login() {
+const std::string ADMIN_USERNAME = "admin";
+const std::string ADMIN_PASSWORD = "admin123";
+
+UserType login() {
     std::string username, password, u, p;
     system("CLS");
     std::cout << "=== Login ===\n";
@@ -12,17 +15,23 @@ bool login() {
     std::cout << "Enter password: ";
     std::cin >> password;
 
+    if (username == ADMIN_USERNAME && password == ADMIN_PASSWORD) {
+        system("CLS");
+        std::cout << "Admin login successful!\n";
+        return UserType::Admin;
+    }
+
     std::ifstream file("users.txt");
     while (file >> u >> p) {
         if (u == username && p == password) {
             system("CLS");
             std::cout << "Login successful!\n";
-            return true;
+            return UserType::Regular;
         }
     }
 
     std::cout << "Invalid username or password.\n";
-    return false;
+    return UserType::None;
 }
 
 void signUp() {
@@ -31,6 +40,12 @@ void signUp() {
     std::cout << "=== Sign Up ===\n";
     std::cout << "Enter a username: ";
     std::cin >> username;
+
+    if (username == ADMIN_USERNAME) {
+        std::cout << "Username reserved. Please choose another one.\n";
+        return;
+    }
+
     std::cout << "Enter a password: ";
     std::cin >> password;
 

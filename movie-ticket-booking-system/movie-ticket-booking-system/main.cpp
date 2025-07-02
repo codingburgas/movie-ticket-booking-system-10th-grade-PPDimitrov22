@@ -1,11 +1,17 @@
 #include <iostream>
 #include <vector>
+#include "auth.h"
 #include "menu.h"
 #include "movie.h"
-#include "auth.h"
 #include "booking.h"
-#include "cinema.h" 
+#include "cinema.h"
 #include "admin.h"
+
+#ifdef _WIN32
+#define CLEAR_SCREEN "CLS"
+#else
+#define CLEAR_SCREEN "clear"
+#endif
 
 std::vector<Movie> movies = {
     {"Inception", "English", "Sci-Fi", "2010-07-16"},
@@ -14,75 +20,91 @@ std::vector<Movie> movies = {
 };
 
 int main() {
-    int authChoice;
-    do {
-        std::cout << "==== Welcome ====\n";
-        std::cout << "1. Login\n";
-        std::cout << "2. Sign Up\n";
-        std::cout << "3. Exit\n";
-        std::cout << "Choose option: ";
-        std::cin >> authChoice;
+    while (true) {  // Loop to restart program after logout
 
-        if (authChoice == 1) {
-            if (login()) {
-                initializeAllSeats();  // Initialize seats once logged in
-                break;
+        system(CLEAR_SCREEN);  // Clear before showing login/signup menu
+
+        int authChoice;
+        UserType userType = UserType::None;
+
+        do {
+            std::cout << "==== Welcome ====\n";
+            std::cout << "1. Login\n";
+            std::cout << "2. Sign Up\n";
+            std::cout << "3. Exit\n";
+            std::cout << "Choose option: ";
+            std::cin >> authChoice;
+
+            if (authChoice == 1) {
+                userType = login();
+
+                if (userType == UserType::Admin) {
+                    system(CLEAR_SCREEN);
+                    std::cout << "Welcome, Admin!\n";
+                    accessAdminPanel();
+                    break;  // After admin panel, return to login/signup menu
+                }
+                else if (userType == UserType::Regular) {
+                    initializeAllSeats();
+                    break;
+                }
+                else {
+                    std::cout << "Press Enter to try again...";
+                    std::cin.ignore();
+                    std::cin.get();
+                    system(CLEAR_SCREEN);
+                }
             }
-            else {
-                std::cout << "Press Enter to try again...";
+            else if (authChoice == 2) {
+                signUp();
+                std::cout << "Press Enter to continue...";
                 std::cin.ignore();
                 std::cin.get();
-                system("CLS");
+                system(CLEAR_SCREEN);
             }
-        }
-        else if (authChoice == 2) {
-            signUp();
-            std::cout << "Press Enter to continue...";
-            std::cin.ignore();
-            std::cin.get();
-            system("CLS");
-        }
-        else if (authChoice == 3) {
-            return 0;
-        }
-        else {
-            std::cout << "Invalid option.\n";
-        }
-    } while (true);
+            else if (authChoice == 3) {
+                return 0;
+            }
+            else {
+                std::cout << "Invalid option.\n";
+            }
+        } while (true);
 
-    int choice;
-    do {
-        displayMenu();
-        std::cin >> choice;
-        system("CLS");
+        if (userType == UserType::Regular) {
+            int choice;
+            do {
+                displayMenu();
+                std::cin >> choice;
+                system(CLEAR_SCREEN);
 
-        switch (choice) {
-        case 1:
-            searchMovies(movies);
-            break;
-        case 2:
-            bookTickets();
-            break;
-        case 3:
-            viewBookingHistory();
-            break;
-        case 4: {
-            accessAdminPanel();
-            break;
-        }
-        case 5:
-            std::cout << "Exiting. Thank you!\n";
-            break;
-        default:
-            std::cout << "Invalid choice. Try again.\n";
-        }
-        if (choice != 5) {
-            std::cout << "Press Enter to continue...";
-            std::cin.ignore();
-            std::cin.get();
-            system("CLS");
-        }
-    } while (choice != 5);
+                switch (choice) {
+                case 1:
+                    searchMovies(movies);
+                    break;
+                case 2:
+                    bookTickets();
+                    break;
+                case 3:
+                    viewBookingHistory();
+                    break;
+                case 4:
+                    std::cout << "Access Denied: Admins only.\n";
+                    break;
+                case 5:
+                    std::cout << "Logging out...\n";
+                    break;
+                default:
+                    std::cout << "Invalid choice. Try again.\n";
+                }
 
+                if (choice != 5) {
+                    std::cout << "Press Enter to continue...";
+                    std::cin.ignore();
+                    std::cin.get();
+                    system(CLEAR_SCREEN);
+                }
+            } while (choice != 5);
+        }
+    }
     return 0;
 }

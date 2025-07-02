@@ -15,7 +15,8 @@ void displayMenu() {
     std::cout << "2. Book Tickets\n";
     std::cout << "3. View Booking History\n";
     std::cout << "4. Access Admin Panel\n";
-    std::cout << "5. Exit\n";
+    std::cout << "5. Logout \n";
+    std::cout << "6. Exit\n";
     std::cout << "Enter your choice: ";
 }
 
